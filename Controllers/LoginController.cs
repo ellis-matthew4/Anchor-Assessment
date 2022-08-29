@@ -1,19 +1,29 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Http;
+using Anchor_Assessment.Services;
 
 namespace Anchor_Project.Controllers
 {
-    public class LoginController : ApiController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class LoginController : ControllerBase
     {
+        private ILoginService _loginService;
+
+        public LoginController(ILoginService loginService)
+        {
+            _loginService = loginService ?? throw new ArgumentNullException(nameof(LoginService));
+        }
+
         [HttpGet]
         // GET: Login
-        public async Task<string> Login(string username, string password)
+        public string Login(string username, string password)
         {
-            return "";
+            return _loginService.getLoginToken(username, password);
         }
     }
 }
