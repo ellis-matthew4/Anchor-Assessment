@@ -20,58 +20,64 @@ namespace Anchor_Project.Controllers
         }
         [HttpPost]
         // POST a record
-        public void Post([FromBody] RecordModel rec)
+        public ActionResult Post([FromBody] RecordModel rec)
         {
             if (authorize())
+            {
                 _valuesService.addRecord(rec);
+                return Ok();
+            }
             else
-                throw new AccessViolationException("Access denied.");
+                return Unauthorized();
         }
 
         [HttpDelete]
         // DELETE a record
-        public void Delete(RecordModel rec)
+        public ActionResult Delete(RecordModel rec)
         {
             if (authorize())
+            {
                 _valuesService.deleteRecord(rec);
+                return Ok();
+            }
             else
-                throw new AccessViolationException("Access denied.");
+                return Unauthorized();
         }
 
         [HttpGet("/all")]
         // GET SS for quote_currency_amount over the entire dataset
-        public StatsModel ssAmountOverEntireSet()
+        public ActionResult<StatsModel> ssAmountOverEntireSet()
         {
             if (authorize())
-                return _valuesService.ssAmountOverEntireSet();
-            throw new AccessViolationException("Access denied.");
+                return Ok(_valuesService.ssAmountOverEntireSet());
+            return Unauthorized();
         }
 
         [HttpGet("/stockBuy")]
         // GET SS for type stock_buy
-        public StatsModel ssForTypeStockBuy()
+        public ActionResult<StatsModel> ssForTypeStockBuy()
         {
             if (authorize())
-                return _valuesService.ssForTypeStockBuy();
-            throw new AccessViolationException("Access denied.");
+                return Ok(_valuesService.ssForTypeStockBuy());
+            return Unauthorized();
         }
 
         [HttpGet("/byType")]
         // GET SS for each type
-        public Dictionary<string, StatsModel> ssByType()
+        public ActionResult<Dictionary<string, StatsModel>> ssByType()
         {
             if (authorize())
-                return _valuesService.ssByType();
-            throw new AccessViolationException("Access denied.");
+                return Ok(_valuesService.ssByType());
+            return Unauthorized();
         }
 
         [HttpGet("/byCombination")]
         // GET SS for each type and quote combination
-        public Dictionary<string, StatsModel> ssByTypeAndQuoteCombination()
+        public ActionResult<Dictionary<string, StatsModel>> ssByTypeAndQuoteCombination()
         {
             if (authorize())
-                return _valuesService.ssByTypeAndQuoteCombination();
-            throw new AccessViolationException("Access denied.");
+                return Ok(_valuesService.ssByTypeAndQuoteCombination());
+            return Unauthorized();
         }
 
         private bool authorize()
