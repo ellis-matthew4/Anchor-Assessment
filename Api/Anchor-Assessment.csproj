@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <RootNamespace>Anchor_Assessment</RootNamespace>
     <StartupObject>Anchor_Assessment.Program</StartupObject>
   </PropertyGroup>
@@ -9,6 +10,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Anchor-Assessment-Tests\**" />
+    <Content Remove="Anchor-Assessment-Tests\**" />
+    <EmbeddedResource Remove="Anchor-Assessment-Tests\**" />
+    <None Remove="Anchor-Assessment-Tests\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
